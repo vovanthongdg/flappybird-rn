@@ -9,12 +9,11 @@ const StackNavigator = () => {
   
     return (
     <>
-    <SoundBackground/>
     <Stack.Navigator 
       screenOptions={{
         headerShown:false,
       }}
-      initialRouteName={"loading"}
+      
     >
         <Stack.Screen name='splash' component={Splash} />
         <Stack.Screen name='game' component={Game} />

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Dimensions, StyleSheet, Text, View, StatusBar, Alert, TouchableOpacity, Image } from 'react-native';
 import Matter from "matter-js";
 import { GameEngine } from "react-native-game-engine";
-import Bird from '../src/Coche/Bird';
-import Floor from '../src/Coche/Floor';
-import Physics, { resetPipes } from '../src/Coche/Physics';
-import Constants from '../src/Coche/Constants';
-import Images from '../assets/Images';
+import Bird from '../Coche/Bird';
+import Floor from '../Coche/Floor';
+import Physics, { resetPipes } from '../Coche/Physics';
+import Constants from '../Coche/Constants';
+import Images from '../../assets/Images';
 
 export default class Game extends Component {
     constructor(props){
@@ -21,6 +21,7 @@ export default class Game extends Component {
 
         this.entities = this.setupWorld();
     }
+    Bir
 
     setupWorld = () => {
         let engine = Matter.Engine.create({ enableSleeping: false });
