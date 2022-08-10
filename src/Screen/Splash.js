@@ -1,13 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View,ImageBackground,SafeAreaView } from 'react-native'
-import React from 'react'
-
-
+import React from 'react';
+import background2 from '../assets/img/background4.jpg'
 
 const Splash = ({navigation}) => {
-  
-    
   return (
-
+    <ImageBackground 
+          source={background2}
+          resizeMode="cover" 
+          style={{flex:1}}
+        >
       <View
         style={{
           flex:1,
@@ -17,15 +18,24 @@ const Splash = ({navigation}) => {
           paddingHorizontal: 20
         }}
       >
-      <Text style={styles.welcome}>{`FlappyBird Game`}</Text>
+      <Text style={styles.welcome}>{`Bird Control Funny Game`}</Text>
       <View style={styles.view1}>
       <TouchableOpacity onPress={() => navigation.navigate('game')}>
         <Text style={styles.instructions}>Play Game </Text>
       </TouchableOpacity>
       </View>
-     
+      <View style={{...styles.view1,marginTop:20}}>
+      <TouchableOpacity onPress={() => navigation.navigate('tutorial')}>
+        <Text style={styles.instructions}>Tutorial Game </Text>
+      </TouchableOpacity>
       </View>
-    
+      <View style={{...styles.view1,marginTop:20}}>
+      <TouchableOpacity onPress={() => navigation.navigate('history')}>
+        <Text style={styles.instructions}>History And Tips</Text>
+      </TouchableOpacity>
+      </View>
+      </View>
+    </ImageBackground>
   )
 }
 

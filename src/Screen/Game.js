@@ -7,7 +7,7 @@ import Floor from '../Coche/Floor';
 import Physics, { resetPipes } from '../Coche/Physics';
 import Constants from '../Coche/Constants';
 import Images from '../../assets/Images';
-
+import AsyncStorage from '@react-native-community/async-storage';
 export default class Game extends Component {
     constructor(props){
         super(props);
@@ -66,6 +66,7 @@ export default class Game extends Component {
     onEvent = (e) => {
         if (e.type === "game-over"){
             //Alert.alert("Game Over");
+            this.saveHistory();
             this.setState({
                 running: false
             });
@@ -84,7 +85,16 @@ export default class Game extends Component {
             score: 0
         });
     }
-
+    saveHistory = async()=> {
+        const higherpointCurrent = await AsyncStorage.getItem("POINT");
+        if(higherpointCurrent!==null){
+            if(higherpointCurrent < this.state.score){
+                AsyncStorage.setItem("POINT",this.state.score.toString())
+            }
+        }else{
+            AsyncStorage.setItem("POINT",this.state.score.toString())
+        }
+    }
     render() {
         return (
             <View style={styles.container}>
@@ -99,10 +109,11 @@ export default class Game extends Component {
                     <StatusBar hidden={true} />
                 </GameEngine>
                 <Text style={styles.score}>{this.state.score}</Text>
-                {!this.state.running && <TouchableOpacity style={styles.fullScreenButton} onPress={this.reset}>
+                {!this.state.running && <TouchableOpacity style={styles.fullScreenButton}>
                     <View style={styles.fullScreen}>
                         <Text style={styles.gameOverText}>Game Over</Text>
-                        <Text style={styles.gameOverSubText}>Try Again</Text>
+                        <Text onPress={this.reset} style={styles.gameOverSubText}>Try Again</Text>
+                        <Text onPress={()=>this.props.navigation.goBack()} style={{...styles.gameOverSubText,marginTop:20}}>Back Home</Text>
                     </View>
                 </TouchableOpacity>}
             </View>
@@ -134,12 +145,10 @@ const styles = StyleSheet.create({
     gameOverText: {
         color: 'white',
         fontSize: 48,
-        fontFamily: '04b_19'
     },
     gameOverSubText: {
         color: 'white',
         fontSize: 24,
-        fontFamily: '04b_19'
     },
     fullScreen: {
         position: 'absolute',
@@ -161,7 +170,6 @@ const styles = StyleSheet.create({
         textShadowColor: '#444444',
         textShadowOffset: { width: 2, height: 2},
         textShadowRadius: 2,
-        fontFamily: '04b_19'
     },
     fullScreenButton: {
         position: 'absolute',
